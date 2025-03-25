@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: .
+    container_name: meu-container-backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+
+  frontend:
+    image: node:latest
+    container_name: meu-container-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app:rw  # Garante que os arquivos sejam montados corretamente
+    command: sh -c "ls -la /app && npm install && npm start"
+    ports:
+      - "3001:3000"
+
